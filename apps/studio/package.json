@@ -8,7 +8,7 @@
     "dev": "sanity dev",
     "start": "sanity start",
     "build": "sanity build",
-    "deploy": "sanity deploy",
+    "deploy": "SANITY_STUDIO_PRESENTATION_URL=https://roboto-3d-viewer.vercel.app NEXT_PUBLIC_SITE_URL=https://roboto-3d-viewer.vercel.app sanity deploy",
     "lint": "biome lint .",
     "format": "biome format --write .",
     "format:check": "biome format .",

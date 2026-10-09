@@ -11,7 +11,8 @@ const dataset = process.env.SANITY_STUDIO_DATASET ?? "production";
 // set it as SANITY_STUDIO_APP_ID so later deploys target the same app. Replaces
 // the deprecated `studioHost` / *.sanity.studio mechanism.
 // https://www.sanity.io/docs/help/studio-host-user-applications
-const appId = process.env.SANITY_STUDIO_APP_ID || undefined;
+// The hosted Studio at roboto-3d-viewer.sanity.studio.
+const appId = process.env.SANITY_STUDIO_APP_ID || "kxhdpf2620twbpqn33tkohkk";
 
 if (!projectId) {
   logger.warn(

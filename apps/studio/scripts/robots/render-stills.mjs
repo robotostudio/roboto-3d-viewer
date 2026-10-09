@@ -21,11 +21,11 @@ const THREE = "https://cdn.jsdelivr.net/npm/three@0.186.0";
 // Gallery views are square and fit the whole model; `hero` is a tall
 // portrait cutout whose height the model fills, for the home page hero.
 const VIEWS = {
-  overview: { dir: [0.75, 0.45, 0.9], width: 1600, height: 1600 },
-  front: { dir: [0.05, 0.25, 1], width: 1600, height: 1600 },
-  side: { dir: [1, 0.2, 0.05], width: 1600, height: 1600 },
-  back: { dir: [-0.7, 0.4, -0.85], width: 1600, height: 1600 },
-  hero: { dir: [0.9, 0.18, 0.75], width: 1200, height: 1800, fitHeight: true },
+  overview: { dir: [0.75, 0.45, 0.9], width: 2048, height: 2048 },
+  front: { dir: [0.05, 0.25, 1], width: 2048, height: 2048 },
+  side: { dir: [1, 0.2, 0.05], width: 2048, height: 2048 },
+  back: { dir: [-0.7, 0.4, -0.85], width: 2048, height: 2048 },
+  hero: { dir: [0.9, 0.18, 0.75], width: 2000, height: 3000, fitHeight: true },
 };
 
 const browser = await chromium.launch({
@@ -107,7 +107,7 @@ new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).parse(bytes.buffer, "", (gltf
     crop.getContext("2d").drawImage(source, minX - pad, h - maxY - 1 - pad, cw, ch, 0, 0, cw, ch);
     source = crop;
   }
-  window.__webp = source.toDataURL("image/webp", 0.9);
+  window.__webp = source.toDataURL("image/webp", 0.92);
 });
 </script></body></html>`);
     await page.waitForFunction(() => window.__webp, null, { timeout: 60_000 });

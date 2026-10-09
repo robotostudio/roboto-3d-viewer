@@ -6,7 +6,12 @@ import { ViewerDialog } from "@workspace/product-3d/viewer-dialog";
 import { SanityImage } from "@workspace/sanity-blocks/internal/sanity-image";
 import { cn } from "@workspace/tailwind-config/utils";
 import { Button } from "@workspace/ui/components/button";
+import { Check, ShoppingCart } from "lucide-react";
+import Link from "next/link";
 import { type KeyboardEvent, useEffect, useRef, useState } from "react";
+
+import { useEnquiry } from "@/components/enquiry/enquiry-context";
+import { QuantityStepper } from "@/components/enquiry/quantity-stepper";
 
 export type GalleryImage = {
   key: string;
@@ -25,6 +30,8 @@ type Props = {
   keyFacts: KeyFact[];
   /** The 3D viewer's data; without it the 3D buttons hide. */
   viewer: Product | null;
+  /** Product slug, for the enquiry line and the contact link. */
+  slug: string;
 };
 
 const EYEBROW =
@@ -33,7 +40,7 @@ const EYEBROW =
 /**
  * Product page hero: a large gallery with the "Interactive 3D model" button
  * on the image (it opens the 3D explorer fullscreen), and the name, headline
- * figures and an "Explore in 3D" action beside it.
+ * figures, "Request a quote" (the enquiry cart) and "Schedule a demo".
  */
 export function DetailHero({
   name,
@@ -42,11 +49,38 @@ export function DetailHero({
   gallery,
   keyFacts,
   viewer,
+  slug,
 }: Readonly<Props>) {
   const rootRef = useRef<HTMLElement>(null);
   const viewerButtonRef = useRef<HTMLButtonElement>(null);
   const [imageIndex, setImageIndex] = useState(0);
   const [viewerOpen, setViewerOpen] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [added, setAdded] = useState(false);
+  const enquiry = useEnquiry();
+  const addedTimer = useRef<number | undefined>(undefined);
+
+  useEffect(() => () => window.clearTimeout(addedTimer.current), []);
+
+  const addToEnquiry = () => {
+    const cover = gallery[0];
+    enquiry.add(
+      {
+        slug,
+        title: name,
+        category,
+        image: cover
+          ? { id: cover.id, preview: cover.preview, alt: cover.alt }
+          : null,
+      },
+      quantity
+    );
+    enquiry.open();
+    setAdded(true);
+    window.clearTimeout(addedTimer.current);
+    addedTimer.current = window.setTimeout(() => setAdded(false), 2000);
+  };
+
   const image = gallery[imageIndex];
 
   // Warm the model once the page is idle, so the viewer's loader is quick.
@@ -194,22 +228,28 @@ export function DetailHero({
           </dl>
         ) : null}
 
-        {viewer ? (
-          <div className="flex flex-col gap-3">
-            <Button
-              className="w-full gap-2.5"
-              onClick={() => setViewerOpen(true)}
-              type="button"
-            >
-              <View3dIcon className="size-5" />
-              Explore in 3D
+        <div className="flex flex-col gap-3">
+          <div className="flex gap-3">
+            <QuantityStepper
+              label={name}
+              onChange={setQuantity}
+              value={quantity}
+            />
+            <Button className="flex-1 gap-2" onClick={addToEnquiry}>
+              {added ? (
+                <Check className="size-4" />
+              ) : (
+                <ShoppingCart className="size-4" />
+              )}
+              {added ? "Added to enquiry" : "Request a quote"}
             </Button>
-            <p className="text-muted-foreground text-sm leading-6">
-              Rotate it, open the numbered hotspots, or split it into its parts
-              with the exploded view.
-            </p>
           </div>
-        ) : null}
+          <Button asChild className="w-full" variant="outline">
+            <Link href={`/contact?topic=demo&product=${slug}`}>
+              Schedule a demo
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {viewer ? (

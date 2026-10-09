@@ -4,6 +4,8 @@ import { Button } from "@workspace/ui/components/button";
 import Link from "next/link";
 import { stegaClean } from "next-sanity";
 
+import { AddToEnquiryButton } from "@/components/enquiry/add-to-enquiry-button";
+
 export type ProductCardData = {
   _id: string;
   title: string | null;
@@ -35,6 +37,8 @@ export function ProductCard({
   if (!href) {
     return null;
   }
+
+  const slug = href.replace(/^\/products\//, "");
 
   return (
     // The title's link stretches over the whole card (after:inset-0), so the
@@ -83,12 +87,27 @@ export function ProductCard({
           </p>
         ) : null}
       </div>
-      {/* relative z-10 lifts the button above the title's stretched link. */}
-      <div className="relative z-10 mt-auto">
+      {/* relative z-10 lifts the buttons above the title's stretched link. */}
+      <div className="relative z-10 mt-auto grid grid-cols-2 gap-3">
+        <AddToEnquiryButton
+          className="w-full gap-2"
+          item={{
+            slug,
+            title: product.title ?? slug,
+            category: product.category,
+            image: imageId
+              ? {
+                  id: imageId,
+                  preview: product.image?.preview,
+                  alt: product.image?.alt,
+                }
+              : null,
+          }}
+        />
         <Button asChild className="w-full" size="sm" variant="outline">
           <Link href={href}>
-            View product
-            <span className="sr-only">: {product.title}</span>
+            Learn more
+            <span className="sr-only"> about {product.title}</span>
           </Link>
         </Button>
       </div>

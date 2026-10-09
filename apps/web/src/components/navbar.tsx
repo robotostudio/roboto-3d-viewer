@@ -14,6 +14,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
+import { EnquiryButton } from "@/components/enquiry/enquiry-button";
 import { GithubStars } from "@/components/github-stars";
 import { Logo } from "@/components/logo";
 import { MobileMenu } from "@/components/mobile-menu";
@@ -300,6 +301,7 @@ export function Navbar({
             data-nav-adaptive=""
           >
             <GithubStars gitHubUrl={gitHubUrl} stars={stars} />
+            <EnquiryButton />
             <SanityButtons
               buttonClassName={NAV_BUTTON_CLASS}
               buttons={buttons || []}
@@ -314,6 +316,7 @@ export function Navbar({
               gitHubUrl={gitHubUrl}
               stars={stars}
             />
+            <EnquiryButton />
             <MobileMenu navbarData={navbarData} settingsData={settingsData} />
           </div>
         </div>

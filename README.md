@@ -28,6 +28,11 @@ template. "Cobot C6" is a made-up product.
   - `/products`, an index of every product;
   - `/products/<slug>`, a gallery with an **Explore in 3D** button that opens the viewer fullscreen, plus specs and FAQs;
   - a **3D Product Viewer** page-builder block, to drop the inline viewer on any page.
+- **Enquiry cart and contact page:**
+  - "Request a quote" on product cards and the product page adds to an enquiry list, kept in localStorage.
+  - The list is reviewed in a cart drawer (with animated counts) and sent with a details form.
+  - `/contact` takes `?topic=demo&product=<slug>` from "Schedule a demo" and also works without JavaScript.
+  - It's in **demo mode**: forms validate and confirm, but nothing is sent. For a real project, wire `deliverEnquiry` / `deliverContact` in `apps/web/src/app/actions/` to a Sanity document, Resend or a CRM.
 - **Cutout hero:** the **Hero Split** block has a "Cutout" layout, which puts a transparent image full-height on the left with the text on the right.
 
 Everything else (page builder, blog, SEO, Visual Editing, Markdown for LLMs)

@@ -35,6 +35,7 @@ export function ProductDetail({ data }: Readonly<{ data: ProductPageData }>) {
         gallery={gallery}
         keyFacts={keyFacts}
         name={data.title ?? ""}
+        slug={(stegaClean(data.slug) ?? "").replace(/^\/products\//, "")}
         summary={data.description}
         viewer={toProduct(data)}
       />
@@ -75,6 +76,12 @@ function Overview({ data }: Readonly<{ data: ProductPageData }>) {
             Editors place hotspots by clicking the model and save camera shots
             with one button. No code, no redeploy.
           </p>
+          <a
+            className="link-underline self-start text-base"
+            href={`/contact?product=${(stegaClean(data.slug) ?? "").replace(/^\/products\//, "")}`}
+          >
+            Questions? Contact us
+          </a>
         </aside>
       </div>
     </Section>

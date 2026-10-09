@@ -18,6 +18,7 @@ import { fetchBlogIndexPage, parseBlogPageParam } from "@/lib/blog-index";
 import {
   blogIndexToMarkdown,
   blogPostToMarkdown,
+  contactToMarkdown,
   type MarkdownBlogListItem,
   type MarkdownDocument,
   type MarkdownProduct,
@@ -150,6 +151,29 @@ async function buildBlogIndexMarkdown(
     : null;
 }
 
+async function buildProductMarkdown(
+  path: string,
+  depth: number,
+  options: DynamicFetchOptions
+): Promise<string | null> {
+  if (depth === 1) {
+    const { data } = await sanityFetch({
+      query: queryProductIndex,
+      ...options,
+    });
+    return productIndexToMarkdown(data ?? []);
+  }
+  if (depth === 2) {
+    const { data } = await sanityFetch({
+      query: queryProductPageData,
+      params: { slug: path },
+      ...options,
+    });
+    return data ? productToMarkdown(data as MarkdownProduct) : null;
+  }
+  return null;
+}
+
 async function buildMarkdown(
   path: string,
   query: BlogIndexQuery,
@@ -170,24 +194,13 @@ async function buildMarkdown(
     return data ? blogPostToMarkdown(data as MarkdownDocument) : null;
   }
 
+  if (path === "/contact") {
+    return contactToMarkdown();
+  }
+
   // Product pages are code-owned routes, not `page` documents.
   if (segments[0] === "products") {
-    if (segments.length === 1) {
-      const { data } = await sanityFetch({
-        query: queryProductIndex,
-        ...options,
-      });
-      return productIndexToMarkdown(data ?? []);
-    }
-    if (segments.length === 2) {
-      const { data } = await sanityFetch({
-        query: queryProductPageData,
-        params: { slug: path },
-        ...options,
-      });
-      return data ? productToMarkdown(data as MarkdownProduct) : null;
-    }
-    return null;
+    return buildProductMarkdown(path, segments.length, options);
   }
 
   const data = await fetchPage(path, options);

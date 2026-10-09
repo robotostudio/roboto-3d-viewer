@@ -20,7 +20,7 @@ import {
   portableTextToMarkdown,
 } from "@workspace/sanity-blocks/internal/portable-text-to-markdown";
 
-import { PRODUCTS_COPY } from "./site-copy";
+import { CONTACT_COPY, PRODUCTS_COPY } from "./site-copy";
 
 // Site origin for absolutizing internal `.md`/page links (already protocol-prefixed).
 const BASE_URL = env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL;
@@ -256,5 +256,18 @@ export function productToMarkdown(product: MarkdownProduct): string {
     section("Interactive 3D highlights", highlights),
     section("FAQs", faqs),
     pageBuilderMarkdown(product as MarkdownDocument),
+  ]);
+}
+
+export function contactToMarkdown(): string {
+  const links = list(
+    CONTACT_COPY.links.map(
+      (link) => `**${link.label}:** [${escapeMarkdown(link.text)}](${link.url})`
+    )
+  );
+  return withTrailingNewline([
+    `# ${escapeMarkdown(CONTACT_COPY.title)}`,
+    escapeMarkdown(CONTACT_COPY.intro),
+    links,
   ]);
 }

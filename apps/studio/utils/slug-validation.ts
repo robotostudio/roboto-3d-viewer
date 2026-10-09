@@ -91,6 +91,7 @@ const CONFIGS: Record<string, SlugValidationOptions> = {
         const reserved = [
           ["/blog", "blog content"],
           ["/products", "product pages"],
+          ["/contact", "the contact page"],
           ["/author", "authors"],
           ["/admin", "admin"],
           ["/api", "API routes"],

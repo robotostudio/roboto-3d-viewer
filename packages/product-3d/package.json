@@ -1,0 +1,44 @@
+{
+  "name": "@workspace/product-3d",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "biome lint .",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "check-types": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "next": ">=16",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "dependencies": {
+    "@gsap/react": "catalog:",
+    "@workspace/logger": "workspace:*",
+    "@workspace/tailwind-config": "workspace:*",
+    "@workspace/ui": "workspace:*",
+    "gsap": "catalog:",
+    "lil-gui": "catalog:",
+    "next-sanity": "13.3.4",
+    "three": "catalog:"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/three": "catalog:",
+    "@workspace/typescript-config": "workspace:*",
+    "next": "16.3.3",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    "./product-3d.css": "./src/product-3d.css",
+    "./product-viewer": "./src/product-viewer.tsx",
+    "./viewer-dialog": "./src/viewer-dialog.tsx",
+    "./map-product": "./src/map-product.ts",
+    "./types": "./src/types.ts",
+    "./icons": "./src/icons.tsx",
+    "./styles": "./src/styles.ts"
+  }
+}

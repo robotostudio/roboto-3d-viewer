@@ -1,0 +1,50 @@
+{
+  "name": "roboto-3d-viewer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Roboto 3D Viewer: a demo of interactive 3D product pages edited in Sanity. Next.js 16 + Sanity Studio monorepo with a three.js product viewer, Studio hotspot picker and exploded view.",
+  "keywords": [
+    "sanity",
+    "sanity-template",
+    "nextjs",
+    "turborepo",
+    "monorepo",
+    "page-builder",
+    "visual-editing",
+    "cms",
+    "tailwindcss",
+    "typescript"
+  ],
+  "license": "MIT",
+  "author": "Roboto Studio (https://robotostudio.com)",
+  "homepage": "https://github.com/robotostudio/roboto-3d-viewer#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robotostudio/roboto-3d-viewer.git"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "build:studio": "turbo run build --filter=studio",
+    "build:web": "turbo run build --filter=web",
+    "dev": "turbo run dev",
+    "dev:studio": "turbo run dev --filter=studio",
+    "dev:web": "turbo run dev --filter=web",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "format:check": "turbo run format:check",
+    "check-types": "turbo run check-types",
+    "type": "turbo run type",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.14",
+    "@workspace/typescript-config": "workspace:*",
+    "turbo": "^2.11.5",
+    "typescript": "catalog:"
+  },
+  "packageManager": "pnpm@11.24.0",
+  "engines": {
+    "node": ">=24"
+  }
+}

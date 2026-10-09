@@ -1,0 +1,102 @@
+/*
+ * 3D viewer styles (@workspace/product-3d), imported by the shared
+ * globals.css. Tokens alias the site's own palette so light and dark mode
+ * carry over; the canvas is transparent over the page background.
+ */
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-brand: var(--brand);
+
+  /* Motion — mirrored in src/motion.ts so CSS and GSAP share the values. */
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+:root {
+  --surface: var(--muted);
+  --line: var(--border);
+  --line-strong: color-mix(in oklch, var(--foreground) 40%, transparent);
+  /* Roboto pink, the accent for hotspots and highlights. */
+  --brand: #ff00a8;
+
+  /* Durations live in :root, not @theme, so reduced motion can override. */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+}
+
+.dark {
+  --brand: #ff4dc4;
+}
+
+/* Loader: a dark curtain carrying only the Roboto mark. The dim ghost fades
+   in on first paint (CSS, so before hydration); the lit copy is revealed by
+   IntroScreen as the model downloads. */
+.intro-screen {
+  background: #0d0d0d;
+}
+
+@keyframes intro-ghost-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.intro-ghost {
+  opacity: 0.16;
+  animation: intro-ghost-in 0.5s var(--ease-out-quad) both;
+}
+
+@keyframes intro-wordmark-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* Once, just after the ghost mark, then still. */
+.intro-wordmark {
+  opacity: 0.85;
+  animation: intro-wordmark-in 0.6s var(--ease-out-quad) 0.25s both;
+}
+
+/* Hotspots: a soft ring that breathes outward so the markers read as
+   interactive without text. */
+@keyframes hotspot-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+.hotspot-pulse {
+  animation: hotspot-pulse 2.2s var(--ease-out-quad) infinite;
+}
+
+/* Reduced motion: collapse the duration tokens and the CSS loops. GSAP is
+   handled by gsap.matchMedia() at each call site. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 1ms;
+    --duration-base: 1ms;
+    --duration-slow: 1ms;
+  }
+
+  .hotspot-pulse {
+    animation: none;
+    opacity: 0;
+  }
+
+  .intro-ghost,
+  .intro-wordmark {
+    animation: none;
+  }
+}

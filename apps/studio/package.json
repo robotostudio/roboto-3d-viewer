@@ -26,13 +26,13 @@
   ],
   "dependencies": {
     "@robotostudio/sanity-plugin-lucide-icon-picker": "^1.0.2",
-    "@sanity/assist": "^6.2.1",
+    "@sanity/assist": "^6.2.5",
     "@sanity/client": "catalog:",
-    "@sanity/functions": "^1.8.0",
+    "@sanity/functions": "^1.10.1",
     "@sanity/icons": "^5.2.1",
-    "@sanity/orderable-document-list": "^2.0.24",
+    "@sanity/orderable-document-list": "^2.0.28",
     "@sanity/ui": "^4.0.6",
-    "@sanity/vision": "^6.16.0",
+    "@sanity/vision": "^6.20.0",
     "@workspace/env": "workspace:*",
     "@workspace/logger": "workspace:*",
     "@workspace/sanity-blocks": "workspace:*",
@@ -43,11 +43,11 @@
     "react-dom": "catalog:",
     "react-is": "catalog:",
     "sanity": "catalog:",
-    "sanity-plugin-asset-source-unsplash": "^7.0.25",
-    "sanity-plugin-media": "^6.3.1",
-    "sanity-plugin-mux-input": "^5.0.12",
+    "sanity-plugin-asset-source-unsplash": "^7.0.30",
+    "sanity-plugin-media": "^6.5.0",
+    "sanity-plugin-mux-input": "^5.2.0",
     "slugify": "^1.6.9",
-    "styled-components": "^6.5.3",
+    "styled-components": "^6.6.0",
     "three": "catalog:"
   },
   "devDependencies": {
@@ -55,6 +55,6 @@
     "@types/react": "catalog:",
     "@types/three": "catalog:",
     "typescript": "catalog:",
-    "vite": "^8.3.1"
+    "vite": "^8.3.5"
   }
 }
